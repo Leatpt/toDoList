@@ -1,15 +1,14 @@
 import { DeleteOutlined } from "@ant-design/icons";
 import { Input, Button, Checkbox, List, Col, Row, Space, Divider } from "antd";
 import { produce } from "immer";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
-import Login from "./Login";
+import LoginLogoutButton from "../LoginLogoutButton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 
-export default function TaskList() {
+export default function TaskList({ isLoggedIn, setIsLoggedIn }) {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
 
@@ -128,7 +127,10 @@ export default function TaskList() {
             <h1>Task List</h1>
           </Col>
           <Col>
-            <Button onClick={Login}>Login</Button>
+            <LoginLogoutButton
+              isLoggedIn={isLoggedIn}
+              setIsLoggedIn={setIsLoggedIn}
+            />
           </Col>
         </Row>
         <Row
