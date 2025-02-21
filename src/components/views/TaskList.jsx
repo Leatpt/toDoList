@@ -4,6 +4,7 @@ import { produce } from "immer";
 import { useState } from "react";
 import { useEffect } from "react";
 import axios from "axios";
+import Login from "./Login";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
@@ -122,15 +123,31 @@ export default function TaskList() {
       style={{ minHeight: "100vh", marginTop: "6rem" }}
     >
       <Col span={12}>
-        <div className="flex">
-          <h1>Task List</h1>
-          <Input
-            value={newTask}
-            onChange={(e) => setNewTask(e.target.value)}
-            placeholder="Add a new task"
-          />
-          <Button onClick={handleAddTask}>Add Task</Button>
-        </div>
+        <Row align="middle" justify="space-between" style={{}}>
+          <Col>
+            <h1>Task List</h1>
+          </Col>
+          <Col>
+            <Button onClick={Login}>Login</Button>
+          </Col>
+        </Row>
+        <Row
+          align="middle"
+          justify="start"
+          gutter={[8, 0]}
+          style={{ marginBottom: "1rem" }}
+        >
+          <Col>
+            <Input
+              value={newTask}
+              onChange={(e) => setNewTask(e.target.value)}
+              placeholder="Add a new task"
+            />
+          </Col>
+          <Col>
+            <Button onClick={handleAddTask}>Add Task</Button>
+          </Col>
+        </Row>
         <Divider />
         <List
           size="small"
