@@ -13,6 +13,10 @@ export default function TaskList() {
   const [newTask, setNewTask] = useState("");
 
   useEffect(() => {
+    fetchTasks();
+  }, []);
+
+  const fetchTasks = () => {
     axios
       .get(API_URL, {
         headers: {
@@ -20,13 +24,12 @@ export default function TaskList() {
         },
       })
       .then((response) => {
-        console.log("Response from API:", response.data);
         setTasks(response.data);
       })
       .catch((error) => {
         console.error("Error fetching tasks:", error);
       });
-  }, []);
+  };
 
   const handleNameChange = (task, event) => {
     const newTasks = produce(tasks, (draft) => {
@@ -34,6 +37,20 @@ export default function TaskList() {
       draft[index].title = event.target.value;
     });
     setTasks(newTasks);
+
+    axios
+      .put(
+        `${API_URL}/${task.id}`,
+        { title: event.target.value },
+        {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      )
+      .catch((error) => {
+        console.error("Error updating task:", error);
+      });
   };
 
   const handleCompletedChange = (task, event) => {
@@ -42,6 +59,23 @@ export default function TaskList() {
       draft[index].marked_as_done = event.target.checked;
     });
     setTasks(newTasks);
+
+    axios
+      .put(
+        `${API_URL}/${task.id}`,
+        { marked_as_done: event.target.checked },
+        {
+          headers: {
+            Authorization: `Bearer ${ACCESS_TOKEN}`,
+          },
+        }
+      )
+      .then(() => {
+        fetchTasks();
+      })
+      .catch((error) => {
+        console.error("Error updating task:", error);
+      });
   };
 
   const handleAddTask = () => {
@@ -88,13 +122,15 @@ export default function TaskList() {
       style={{ minHeight: "100vh", marginTop: "6rem" }}
     >
       <Col span={12}>
-        <h1>Task List</h1>
-        <Input
-          value={newTask}
-          onChange={(e) => setNewTask(e.target.value)}
-          placeholder="Add a new task"
-        />
-        <Button onClick={handleAddTask}>Add Task</Button>
+        <div className="flex">
+          <h1>Task List</h1>
+          <Input
+            value={newTask}
+            onChange={(e) => setNewTask(e.target.value)}
+            placeholder="Add a new task"
+          />
+          <Button onClick={handleAddTask}>Add Task</Button>
+        </div>
         <Divider />
         <List
           size="small"
