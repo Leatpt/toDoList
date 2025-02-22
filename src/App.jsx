@@ -1,6 +1,7 @@
 import { BrowserRouter, Route, Routes } from "react-router";
 import TaskList from "./components/views/TaskList";
 import Login from "./components/views/Login";
+import Register from "./components/views/Register";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
 //import 'antd/dist/antd.css';
@@ -20,6 +21,7 @@ function App() {
             }
           />
           <Route path="/login" element={<Login />} />
+          <Route path="/register" element={<Register />} />
         </Routes>
       </BrowserRouter>
     </AuthProvider>

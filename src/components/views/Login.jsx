@@ -29,6 +29,10 @@ export default function Login() {
     }
   };
 
+  const handleRegisterClick = () => {
+    navigate("/register");
+  };
+
   return (
     <Row
       type="flex"
@@ -64,7 +68,7 @@ export default function Login() {
             </Button>
             <Button
               type="primary"
-              htmlType="submit"
+              onClick={handleRegisterClick}
               style={{ marginLeft: "8px" }}
             >
               Register
