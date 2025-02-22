@@ -27,7 +27,6 @@ export default function useAuthCookie() {
 
   useEffect(() => {
     const storedLogin = Cookies.get("loggedIn");
-    console.log("Cookie checked:", storedLogin);
     if (storedLogin === "true") {
       setIsLoggedIn(true);
       setLogoutTimer();

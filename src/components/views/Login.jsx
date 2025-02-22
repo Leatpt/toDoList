@@ -18,7 +18,6 @@ export default function Login() {
         username: username,
         password: password,
       });
-      console.log(response);
 
       if (response.status === 200) {
         const { access_token } = response.data;
