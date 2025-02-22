@@ -4,6 +4,7 @@ import Login from "./components/views/Login";
 import Register from "./components/views/Register";
 import { AuthProvider } from "./context/AuthContext";
 import ProtectedRoute from "./components/ProtectedRoute";
+import AxiosAccessToken from "./context/AxiosAccessToken";
 //import 'antd/dist/antd.css';
 import "./App.css";
 
@@ -11,6 +12,7 @@ function App() {
   return (
     <AuthProvider>
       <BrowserRouter>
+        <AxiosAccessToken />
         <Routes>
           <Route
             path="/"

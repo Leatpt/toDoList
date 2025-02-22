@@ -62,17 +62,20 @@ export default function Login() {
           >
             <Input.Password />
           </Form.Item>
+
           <Form.Item>
-            <Button type="primary" htmlType="submit">
-              Login
-            </Button>
-            <Button
-              type="primary"
-              onClick={handleRegisterClick}
-              style={{ marginLeft: "8px" }}
-            >
-              Register
-            </Button>
+            <Row>
+              <Button type="primary" htmlType="submit">
+                Login
+              </Button>
+              <Button
+                type="primary"
+                onClick={handleRegisterClick}
+                style={{ marginLeft: "8px" }}
+              >
+                Register
+              </Button>
+            </Row>
           </Form.Item>
         </Form>
       </Col>
