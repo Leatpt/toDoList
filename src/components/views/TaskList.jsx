@@ -14,9 +14,9 @@ export default function TaskList() {
   const { logoutCookie } = useAuthCookie();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    const accessToken = localStorage.getItem("access_token");
+  const accessToken = localStorage.getItem("access_token");
 
+  useEffect(() => {
     if (!accessToken) {
       navigate("/login");
     } else {
