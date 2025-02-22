@@ -7,7 +7,6 @@ import useAuthCookie from "../../context/useAuthCookie";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
-const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
@@ -16,14 +15,20 @@ export default function TaskList() {
   const navigate = useNavigate();
 
   useEffect(() => {
-    fetchTasks();
-  }, []);
+    const accessToken = localStorage.getItem("access_token");
 
-  const fetchTasks = () => {
+    if (!accessToken) {
+      navigate("/login");
+    } else {
+      fetchTasks(accessToken);
+    }
+  }, [navigate]);
+
+  const fetchTasks = (accessToken) => {
     axios
       .get(API_URL, {
         headers: {
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       .then((response) => {
@@ -47,7 +52,7 @@ export default function TaskList() {
         { title: event.target.value },
         {
           headers: {
-            Authorization: `Bearer ${ACCESS_TOKEN}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       )
@@ -69,7 +74,7 @@ export default function TaskList() {
         { marked_as_done: event.target.checked },
         {
           headers: {
-            Authorization: `Bearer ${ACCESS_TOKEN}`,
+            Authorization: `Bearer ${accessToken}`,
           },
         }
       )
@@ -89,7 +94,7 @@ export default function TaskList() {
           { title: newTask },
           {
             headers: {
-              Authorization: `Bearer ${ACCESS_TOKEN}`,
+              Authorization: `Bearer ${accessToken}`,
             },
           }
         )
@@ -107,7 +112,7 @@ export default function TaskList() {
     axios
       .delete(`${API_URL}/${task.id}`, {
         headers: {
-          Authorization: `Bearer ${ACCESS_TOKEN}`,
+          Authorization: `Bearer ${accessToken}`,
         },
       })
       .then(() => {
