@@ -2,15 +2,18 @@ import { DeleteOutlined } from "@ant-design/icons";
 import { Input, Button, Checkbox, List, Col, Row, Space, Divider } from "antd";
 import { produce } from "immer";
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router";
+import { useAuth } from "../../context/AuthContext";
 import axios from "axios";
-import LoginLogoutButton from "../LoginLogoutButton";
 
 const API_URL = import.meta.env.VITE_API_URL;
 const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 
-export default function TaskList({ isLoggedIn, setIsLoggedIn }) {
+export default function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
+  const { setIsLoggedIn } = useAuth();
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchTasks();
@@ -127,10 +130,16 @@ export default function TaskList({ isLoggedIn, setIsLoggedIn }) {
             <h1>Task List</h1>
           </Col>
           <Col>
-            <LoginLogoutButton
-              isLoggedIn={isLoggedIn}
-              setIsLoggedIn={setIsLoggedIn}
-            />
+            <Col>
+              <Button
+                onClick={() => {
+                  setIsLoggedIn(false);
+                  navigate("/logout");
+                }}
+              >
+                Logout
+              </Button>
+            </Col>
           </Col>
         </Row>
         <Row

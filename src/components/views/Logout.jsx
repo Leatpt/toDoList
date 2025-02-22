@@ -7,7 +7,7 @@ export default function Logout() {
   const { setIsLoggedIn } = useAuth();
 
   useEffect(() => {
-    localStorage.removeItem("authToken");
+    localStorage.removeItem("access_token");
 
     setIsLoggedIn(false);
 

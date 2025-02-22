@@ -1,10 +1,12 @@
 import { Form, Input, Button, Row, Col, notification } from "antd";
 import { useNavigate } from "react-router";
 import { useState } from "react";
+import { useAuth } from "../../context/AuthContext";
 
 export default function Login() {
   const navigate = useNavigate();
-  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  const { setIsLoggedIn } = useAuth();
+  const [isLoggedIn] = useState(false);
 
   const onFinish = (values) => {
     const hardcodedUsername = "leatpt";
@@ -62,6 +64,13 @@ export default function Login() {
           <Form.Item>
             <Button type="primary" htmlType="submit">
               Login
+            </Button>
+            <Button
+              type="primary"
+              htmlType="submit"
+              style={{ marginLeft: "8px" }}
+            >
+              Register
             </Button>
           </Form.Item>
         </Form>
