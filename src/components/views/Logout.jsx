@@ -1,16 +1,14 @@
 import { useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../context/AuthContext";
+import useAuthCookie from "../../context/useAuthCookie";
 
 export default function Logout() {
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();
+  const { logoutCookie } = useAuthCookie();
 
   useEffect(() => {
     localStorage.removeItem("access_token");
-
-    setIsLoggedIn(false);
-
+    logoutCookie();
     navigate("/login");
   }, [navigate, setIsLoggedIn]);
 

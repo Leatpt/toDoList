@@ -1,12 +1,10 @@
 import { Form, Input, Button, Row, Col, notification } from "antd";
 import { useNavigate } from "react-router";
-import { useState } from "react";
-import { useAuth } from "../../context/AuthContext";
+import useAuthCookie from "../../context/useAuthCookie";
 
 export default function Login() {
   const navigate = useNavigate();
-  const { setIsLoggedIn } = useAuth();
-  const [isLoggedIn] = useState(false);
+  const { loginCookie } = useAuthCookie();
 
   const onFinish = (values) => {
     const hardcodedUsername = "leatpt";
@@ -22,8 +20,7 @@ export default function Login() {
       });
 
       localStorage.setItem("access_token", hardcodedAccessToken);
-
-      setIsLoggedIn(true);
+      loginCookie();
       navigate("/");
     } else {
       notification.error({

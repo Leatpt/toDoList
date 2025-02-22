@@ -3,7 +3,7 @@ import { Input, Button, Checkbox, List, Col, Row, Space, Divider } from "antd";
 import { produce } from "immer";
 import { useState, useEffect } from "react";
 import { useNavigate } from "react-router";
-import { useAuth } from "../../context/AuthContext";
+import useAuthCookie from "../../context/useAuthCookie";
 import axios from "axios";
 
 const API_URL = import.meta.env.VITE_API_URL;
@@ -12,7 +12,7 @@ const ACCESS_TOKEN = import.meta.env.VITE_ACCESS_TOKEN;
 export default function TaskList() {
   const [tasks, setTasks] = useState([]);
   const [newTask, setNewTask] = useState("");
-  const { setIsLoggedIn } = useAuth();
+  const { logoutCookie } = useAuthCookie();
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -133,7 +133,7 @@ export default function TaskList() {
             <Col>
               <Button
                 onClick={() => {
-                  setIsLoggedIn(false);
+                  logoutCookie();
                   navigate("/logout");
                 }}
               >
