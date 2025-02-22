@@ -1,10 +1,10 @@
-// Register.jsx
 import { Form, Input, Button, Row, Col, notification } from "antd";
-import { useNavigate } from "react-router-dom"; // Use react-router-dom to navigate
-import { useEffect } from "react"; // To clear form values on mount
+import { useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 export default function Register() {
   const navigate = useNavigate();
+  const [form] = Form.useForm();
 
   const onFinish = (values) => {
     notification.success({
@@ -14,7 +14,9 @@ export default function Register() {
     navigate("/login");
   };
 
-  useEffect(() => {}, []);
+  useEffect(() => {
+    form.resetFields();
+  }, [form]);
 
   return (
     <Row
@@ -26,8 +28,10 @@ export default function Register() {
       <Col span={4}>
         <h1>Register</h1>
         <Form
-          name="basic"
+          form={form}
+          name="register-form"
           layout="vertical"
+          autoComplete="new-password"
           initialValues={{
             username: "",
             password: "",
@@ -41,7 +45,7 @@ export default function Register() {
             name="username"
             rules={[{ required: true, message: "Please input your username!" }]}
           >
-            <Input />
+            <Input autoComplete="off" />
           </Form.Item>
 
           <Form.Item
@@ -51,7 +55,7 @@ export default function Register() {
               { required: true, message: "Please input your firstname!" },
             ]}
           >
-            <Input />
+            <Input autoComplete="off" />
           </Form.Item>
 
           <Form.Item
@@ -59,7 +63,7 @@ export default function Register() {
             name="lastname"
             rules={[{ required: true, message: "Please input your lastname!" }]}
           >
-            <Input />
+            <Input autoComplete="off" />
           </Form.Item>
 
           <Form.Item
@@ -67,7 +71,7 @@ export default function Register() {
             name="password"
             rules={[{ required: true, message: "Please input your password!" }]}
           >
-            <Input.Password />
+            <Input.Password autoComplete="new-password" />
           </Form.Item>
 
           <Form.Item>
